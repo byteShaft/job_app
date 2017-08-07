@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f2f2f2">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/edit_profile_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:elevation="4dp"
+        android:minHeight="?attr/actionBarSize">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/back_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:background="?attr/selectableItemBackground"
+                android:padding="6dp"
+                android:src="@mipmap/back_arrow" />
+
+            <TextView
+                android:id="@+id/profile_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="Edit Profile"
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/edit_profile_toolbar">
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="20dp"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:background="#FFF">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/user_dp"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/camera" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:layout_toRightOf="@+id/user_dp"
+                    android:text="Enter your name and add anoptional profile picture" />
+
+            </RelativeLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp">
+
+                <EditText
+                    android:id="@+id/name_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="#FFF"
+                    android:hint="Full name"
+                    android:inputType="textEmailAddress"
+                    android:paddingLeft="10sp"
+                    android:paddingTop="@dimen/floating_hint_margin"
+                    android:singleLine="true"
+                    android:textColor="#000"
+                    android:textSize="15sp" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp">
+
+                <EditText
+                    android:id="@+id/mobile_number_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="#FFF"
+                    android:hint="Mobile number"
+                    android:inputType="number"
+                    android:paddingLeft="10sp"
+                    android:paddingTop="@dimen/floating_hint_margin"
+                    android:singleLine="true"
+                    android:textColor="#000"
+                    android:textSize="15sp" />
+            </android.support.design.widget.TextInputLayout>
+
+            <TextView
+                android:id="@+id/pick_for_current_location"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:drawableLeft="@mipmap/location_icon"
+                android:drawablePadding="5dp"
+                android:gravity="center"
+                android:text="Get current location" />
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/location_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="#FFF"
+                    android:enabled="false"
+                    android:hint="Current address"
+                    android:paddingLeft="10sp"
+                    android:paddingTop="@dimen/floating_hint_margin"
+                    android:textColor="#000"
+                    android:textSize="15sp" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/button_save"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/login_button_background"
+                android:text="Save"
+                android:textAllCaps="false"
+                android:textColor="#000" />
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

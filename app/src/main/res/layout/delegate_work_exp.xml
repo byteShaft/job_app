@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="4dp">
+
+
+    <ImageView
+        android:id="@+id/img_education"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="@mipmap/ic_education" />
+
+    <TextView
+        android:id="@+id/work_period"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@+id/img_education"
+        android:text="2001- 2001" />
+
+    <TextView
+        android:id="@+id/at"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@id/work_period"
+        android:text="at" />
+
+    <TextView
+        android:id="@+id/text_company"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@id/at"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:text="example school " />
+
+</RelativeLayout>

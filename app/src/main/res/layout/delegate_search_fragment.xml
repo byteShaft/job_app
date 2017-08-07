@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/layout_a"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/card_view_background">
+
+        <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            card_view:cardCornerRadius="20dp"
+            card_view:contentPadding="5dp">
+
+            <RelativeLayout
+                android:id="@+id/layout_one"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/company_name"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="16dp">
+
+                <TextView
+                    android:id="@+id/job_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:text="Sales Support Executive"
+                    android:textColor="@android:color/black"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/company_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/job_title"
+                    android:layout_marginTop="6dp"
+                    android:singleLine="true"
+                    android:text="Good job Creation Pvt"
+                    android:textColor="@android:color/black"
+                    android:textSize="12sp" />
+
+                <Button
+                    android:id="@+id/job_type"
+                    android:layout_width="75dp"
+                    android:layout_height="25dp"
+                    android:layout_below="@+id/company_description"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/round_button"
+                    android:text="Full Time"
+                    android:textAllCaps="false"
+                    android:textSize="10sp" />
+
+                <Button
+                    android:id="@+id/degree_button"
+                    android:layout_width="75dp"
+                    android:layout_height="25dp"
+                    android:layout_below="@+id/company_description"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/round_button"
+                    android:text="Degree"
+                    android:textAllCaps="false"
+                    android:textSize="10sp"
+                    android:visibility="invisible" />
+
+                <LinearLayout
+                    android:id="@+id/location_and_pri"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/degree_button"
+                    android:layout_marginTop="8dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/a_job_location"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@mipmap/place_icon"
+                        android:drawablePadding="4dp"
+                        android:text="Woodland" />
+
+
+                    <TextView
+                        android:id="@+id/a_salary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@mipmap/doller_icon"
+                        android:drawablePadding="6dp"
+                        android:text="30,000" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/image_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/location_and_pri"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/job_icon"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@mipmap/sales_icon" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="10dp">
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:text="Sales and Promotions"
+                            android:textColor="@android:color/black"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:text="1 hr ago"
+                            android:textColor="@android:color/black"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/view_more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:layout_below="@+id/image_layout"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/round_button"
+                    android:text="View More"
+                    android:textAllCaps="false"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/fab_save"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentBottom="true"
+        android:clickable="true"
+        android:layout_alignParentRight="true"
+        android:background="?attr/selectableItemBackground"
+        android:padding="2dp"
+        android:src="@drawable/plus" />
+
+</RelativeLayout>
