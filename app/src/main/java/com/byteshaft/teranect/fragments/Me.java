@@ -184,8 +184,12 @@ public class Me extends Fragment implements View.OnClickListener {
     @Override
     public void onResume() {
         super.onResume();
+        qualificationArrayList.clear();
+        workExperienceArrayList.clear();
+
         getQualificationList();
         getWorkExperienceList();
+
         skillsTextViews.setText(AppGlobals.getStringFromSharedPreferences("skills"));
         if (AppGlobals.isLogin() && !AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_IMAGE_URL).trim().isEmpty()
                 && AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_IMAGE_URL) != null) {
