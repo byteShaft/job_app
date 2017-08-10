@@ -75,6 +75,7 @@ public class EditProfile extends AppCompatActivity implements View.OnClickListen
     private static String imageUrl = "";
     private Bitmap profilePic;
 
+    private static final int LOCATION_PERMISSION = 4;
     private static final int REQUEST_CAMERA = 3;
     private static final int SELECT_FILE = 2;
     private static final int STORAGE_CAMERA_PERMISSION = 1;
@@ -82,12 +83,10 @@ public class EditProfile extends AppCompatActivity implements View.OnClickListen
     private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
     private int locationCounter = 0;
-    private static final int LOCATION_PERMISSION = 4;
 
     private String mMobileNumberString;
     private String mUserNameString;
     private String mLocationString;
-    private String mAddressString;
 
     private HttpRequest request;
 
@@ -158,7 +157,7 @@ public class EditProfile extends AppCompatActivity implements View.OnClickListen
                 }
                 break;
             case R.id.button_save:
-                mAddressString = mAddress.getText().toString();
+                mLocationString = mAddress.getText().toString();
                 mMobileNumberString = mMobileNumber.getText().toString();
                 mUserNameString = mUserName.getText().toString();
                 editProfileDataToServer();
@@ -174,13 +173,14 @@ public class EditProfile extends AppCompatActivity implements View.OnClickListen
         FormData data = new FormData();
         data.append(FormData.TYPE_CONTENT_TEXT, "name", mUserNameString);
         data.append(FormData.TYPE_CONTENT_TEXT, "phone_number", mMobileNumberString);
+        Log.e("ImageValue ", String.valueOf(imageUrl.isEmpty()));
+        Log.e("LocationValue ", String.valueOf(mLocationString.isEmpty()));
         if (imageUrl != null && !imageUrl.trim().isEmpty()) {
-            System.out.println(imageUrl + "imageView");
             data.append(FormData.TYPE_CONTENT_FILE, "photo", imageUrl);
         }
+
         if (mLocationString != null){
             data.append(FormData.TYPE_CONTENT_TEXT, "location", mLocationString);
-            System.out.println(imageUrl + "imageView");
         }
         request = new HttpRequest(getApplicationContext());
         request.setOnReadyStateChangeListener(this);
@@ -210,10 +210,8 @@ public class EditProfile extends AppCompatActivity implements View.OnClickListen
         switch (readyState) {
             case HttpRequest.STATE_DONE:
                 Helpers.dismissProgressDialog();
-                Log.i("TAG", "Response " + request.getResponseText());
                 switch (request.getStatus()) {
                     case HttpURLConnection.HTTP_OK:
-                        System.out.println(request.getResponseText() + "200");
                         Toast.makeText(this, "Profile updated successfully", Toast.LENGTH_SHORT).show();
                         System.out.println(request.getResponseText() + "working ");
                         try {
