@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.byteshaft.jobapp.JobDetailsActivity">
+    android:layout_height="match_parent">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/my_toolbar"
@@ -40,9 +38,9 @@
     </android.support.v7.widget.Toolbar>
 
     <ScrollView
-        android:layout_below="@+id/my_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/my_toolbar">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -210,6 +208,7 @@
                 android:weightSum="2">
 
                 <Button
+                    android:id="@+id/button_job_save"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -225,6 +224,7 @@
                     android:background="@android:color/black" />
 
                 <Button
+                    android:id="@+id/button_apply"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

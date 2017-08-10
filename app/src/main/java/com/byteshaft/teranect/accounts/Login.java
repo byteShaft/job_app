@@ -193,18 +193,16 @@ public class Login extends Fragment implements View.OnClickListener, HttpRequest
                         switch (request.getStatus()) {
                             case HttpURLConnection.HTTP_OK:
                                 try {
+                                    Log.i("Login Response Text", request.getResponseText());
                                     JSONObject jsonObject = new JSONObject(request.getResponseText());
                                     String userId = jsonObject.getString(AppGlobals.KEY_USER_ID);
                                     String email = jsonObject.getString(AppGlobals.KEY_EMAIL);
                                     String UserName = jsonObject.getString(AppGlobals.KEY_USER_NAME);
-                                    String skills = jsonObject.getString(AppGlobals.KEY_SKILLS);
 
                                     //saving values
                                     AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_EMAIL, email);
                                     AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_USER_ID, userId);
                                     AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_USER_NAME, UserName);
-                                    AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_SKILLS, skills);
-                                    Log.i("closingTime", " " + AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_USER_NAME));
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }

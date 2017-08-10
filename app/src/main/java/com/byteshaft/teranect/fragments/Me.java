@@ -109,6 +109,8 @@ public class Me extends Fragment implements View.OnClickListener {
         jobAppliedButton.setOnClickListener(this);
         jobSavedButton.setOnClickListener(this);
         jobResumeButton.setOnClickListener(this);
+        String userName = AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_USER_NAME);
+        mUserName.setText(userName);
         return mBaseView;
     }
 
@@ -186,7 +188,6 @@ public class Me extends Fragment implements View.OnClickListener {
         super.onResume();
         qualificationArrayList.clear();
         workExperienceArrayList.clear();
-
         getQualificationList();
         getWorkExperienceList();
 
@@ -204,17 +205,16 @@ public class Me extends Fragment implements View.OnClickListener {
             String userName = AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_USER_NAME);
             userName = userName.toLowerCase();
             userName = userName.substring(0, 1).toUpperCase() + userName.substring(1).toLowerCase();
-
             mUserName.setText(userName);
         }
-        if (AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_LOCATION) != null &&
-                !AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_LOCATION).trim().isEmpty()) {
-            String location = AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_LOCATION);
-            String[] latlng = location.split(",");
-            double latitude = Double.parseDouble(latlng[0]);
-            double longitude = Double.parseDouble(latlng[1]);
-            getAddress(latitude, longitude);
-        }
+//        if (AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_LOCATION) != null &&
+//                !AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_LOCATION).trim().isEmpty()) {
+//            String location = AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_LOCATION);
+//            String[] latlng = location.split(",");
+//            double latitude = Double.parseDouble(latlng[0]);
+//            double longitude = Double.parseDouble(latlng[1]);
+//            getAddress(latitude, longitude);
+//        }
     }
 
 

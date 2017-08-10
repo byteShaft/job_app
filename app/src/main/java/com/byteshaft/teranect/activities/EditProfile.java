@@ -217,23 +217,19 @@ public class EditProfile extends AppCompatActivity implements View.OnClickListen
                         Toast.makeText(this, "Profile updated successfully", Toast.LENGTH_SHORT).show();
                         System.out.println(request.getResponseText() + "working ");
                         try {
-                            JSONObject jsonObject = new JSONObject(request.getResponseText());
-                            String userId = jsonObject.getString(AppGlobals.KEY_USER_ID);
-                            String email = jsonObject.getString(AppGlobals.KEY_EMAIL);
-                            String userName = jsonObject.getString(AppGlobals.KEY_USER_NAME);
-                            String mobileNumber = jsonObject.getString(AppGlobals.KEY_PHONE_NUMBER);
+                            JSONObject mainObject = new JSONObject(request.getResponseText());
+                            JSONObject jsonObject = mainObject.getJSONObject("user_details");
+                            String name = mainObject.getString(AppGlobals.KEY_USER_NAME);
+                            String photoUrl = jsonObject.getString(AppGlobals.KEY_IMAGE_URL);
                             String location = jsonObject.getString(AppGlobals.KEY_LOCATION);
-                            String userImage = jsonObject.getString(AppGlobals.KEY_IMAGE_URL);
 
-                            //saving values
-                            AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_EMAIL, email);
-                            AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_USER_ID, userId);
-                            AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_IMAGE_URL, AppGlobals.SERVER_IP_FOR_IMAGE + userImage);
-                            AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_USER_NAME, userName);
-                            AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_PHONE_NUMBER, mobileNumber);
-                            AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_LOCATION, location);
-                            Log.i("i love you..", " " + AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_IMAGE_URL));
-                            finish();
+                            Log.e("photo urlllll", location);
+                            Log.e("the sl", jsonObject.toString());
+
+                            AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_USER_NAME, name);
+                            AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_IMAGE_URL, photoUrl);
+                            AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_LOCATION, photoUrl);
+
                             ProfileSettings.getInstance().finish();
                         } catch (JSONException e) {
                             e.printStackTrace();

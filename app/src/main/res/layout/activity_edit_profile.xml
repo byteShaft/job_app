@@ -8,7 +8,7 @@
         android:id="@+id/edit_profile_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#ffffff"
+        android:background="@android:color/white"
         android:elevation="4dp"
         android:minHeight="?attr/actionBarSize">
 
@@ -58,8 +58,9 @@
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/user_dp"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="15dp"
                     android:background="@drawable/camera" />
@@ -83,15 +84,15 @@
                 <EditText
                     android:id="@+id/name_edit_text"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:background="#FFF"
+                    android:background="@android:drawable/edit_text"
+                    android:layout_height="wrap_content"
                     android:hint="Full name"
                     android:inputType="textEmailAddress"
                     android:paddingLeft="10sp"
                     android:paddingTop="@dimen/floating_hint_margin"
                     android:singleLine="true"
-                    android:textColor="#000"
-                    android:textSize="15sp" />
+                    android:textColor="#000" />
+
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -102,9 +103,9 @@
                 <EditText
                     android:id="@+id/mobile_number_edit_text"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:background="#FFF"
+                    android:layout_height="wrap_content"
                     android:hint="Mobile number"
+                    android:background="@android:drawable/edit_text"
                     android:inputType="number"
                     android:paddingLeft="10sp"
                     android:paddingTop="@dimen/floating_hint_margin"
@@ -129,8 +130,8 @@
                 <EditText
                     android:id="@+id/location_edit_text"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:background="#FFF"
+                    android:background="@android:drawable/edit_text"
+                    android:layout_height="wrap_content"
                     android:enabled="false"
                     android:hint="Current address"
                     android:paddingLeft="10sp"
