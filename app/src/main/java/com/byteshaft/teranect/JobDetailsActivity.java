@@ -1,22 +1,25 @@
 package com.byteshaft.teranect;
 
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.byteshaft.requests.HttpRequest;
 import com.byteshaft.teranect.utils.AppGlobals;
 import com.byteshaft.teranect.utils.Helpers;
+import com.byteshaft.teranect.utils.LoginDialog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.HttpURLConnection;
 
-public class JobDetailsActivity extends AppCompatActivity {
+public class JobDetailsActivity extends AppCompatActivity implements View.OnClickListener {
 
 
     private ImageButton backButton;
@@ -27,19 +30,28 @@ public class JobDetailsActivity extends AppCompatActivity {
     private TextView jobLocation;
     private TextView phoneNumber;
     private TextView website;
+    private Button jobSaveButton;
+    private Button jobApplyButton;
+    private int jobId;
+    private LoginDialog loginDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_job_details);
         String id = getIntent().getStringExtra("id");
-
+        loginDialog = new LoginDialog(JobDetailsActivity.this);
         companyName = (TextView) findViewById(R.id.tv_company_name);
         jobDescription = (TextView) findViewById(R.id.tv_job_description);
         jobLocation = (TextView) findViewById(R.id.tv_location);
-        jobRequirement = (TextView)findViewById(R.id.tv_job_requirement);
+        jobRequirement = (TextView) findViewById(R.id.tv_job_requirement);
         phoneNumber = (TextView) findViewById(R.id.tv_phone);
         createdAt = (TextView) findViewById(R.id.date);
+
+        jobSaveButton = (Button) findViewById(R.id.button_job_save);
+        jobApplyButton = (Button) findViewById(R.id.button_apply);
+        jobSaveButton.setOnClickListener(this);
+        jobApplyButton.setOnClickListener(this);
         backButton = (ImageButton) findViewById(R.id.back_button);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,9 +60,41 @@ public class JobDetailsActivity extends AppCompatActivity {
             }
         });
 
-        int jobId = Integer.parseInt(id);
+        jobId = Integer.parseInt(id);
         getJobDetails(jobId);
-//        getJobDetails(id);
+    }
+
+    public void saveJob(int id) {
+        Helpers.showProgressDialog(JobDetailsActivity.this, "Please wait...");
+        HttpRequest httpRequest = new HttpRequest(getApplicationContext());
+        httpRequest.setOnReadyStateChangeListener(new HttpRequest.OnReadyStateChangeListener() {
+            @Override
+            public void onReadyStateChange(HttpRequest request, int readyState) {
+                switch (readyState) {
+                    case HttpRequest.STATE_DONE:
+                        Helpers.dismissProgressDialog();
+                        Log.i("MY URLl", request.getResponseURL());
+                        Helpers.dismissProgressDialog();
+                        switch (request.getStatus()) {
+                            case HttpURLConnection.HTTP_CREATED:
+                                Snackbar.make(companyName, "Job Saved", Snackbar.LENGTH_SHORT).show();
+                                jobSaveButton.setText("Saved");
+                                jobSaveButton.setTextColor(getResources().getColor(R.color.colorAccent));
+                                jobSaveButton.setEnabled(false);
+                        }
+                }
+            }
+        });
+        httpRequest.open("POST", String.format("%sjobs/saved/", AppGlobals.BASE_URL));
+        httpRequest.setRequestHeader("Authorization", "Token " +
+                AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_TOKEN));
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("job", id);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        httpRequest.send(jsonObject.toString());
     }
 
     private void getJobDetails(int id) {
@@ -90,5 +134,21 @@ public class JobDetailsActivity extends AppCompatActivity {
         });
         request.open("GET", String.format("%sjobs/%s", AppGlobals.BASE_URL, id));
         request.send();
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.button_job_save:
+                if (AppGlobals.isLogin()) {
+                    saveJob(jobId);
+                } else {
+                    loginDialog.show();
+                }
+                break;
+
+            case R.id.button_apply:
+                break;
+        }
     }
 }

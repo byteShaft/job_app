@@ -17,7 +17,7 @@ public class SplashScreen extends Activity {
             @Override
             public void run() {
                 finish();
-                startActivity(new Intent(getApplicationContext(), LanguageSelectionActivity.class));
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
             }
         }, 3000);
     }

@@ -37,10 +37,12 @@ public class LoginDialog extends Dialog implements View.OnClickListener {
                 Intent registerActivity = new Intent(getContext(), AccountManager.class);
                 registerActivity.putExtra("register", "Register");
                 getContext().startActivity(registerActivity);
+                dismiss();
                 break;
             case R.id.login_text_button:
                 Intent i = new Intent(getContext(), AccountManager.class);
                 getContext().startActivity(i);
+                dismiss();
                 break;
         }
     }
