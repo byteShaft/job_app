@@ -24,8 +24,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.byteshaft.teranect.MainActivity;
 import com.byteshaft.teranect.R;
 import com.byteshaft.teranect.activities.MessagesActivity;
 import com.byteshaft.teranect.activities.QRcodeActivity;
@@ -49,6 +51,12 @@ public class Home extends Fragment implements View.OnClickListener {
     private Toolbar toolbarTop;
     private ImageButton barcodeButton;
     private ImageButton messageButton;
+
+    private LinearLayout health;
+    private LinearLayout insurance;
+    private LinearLayout informationTechnology;
+    private LinearLayout sales;
+
     private TextView title;
 
     @Override
@@ -59,6 +67,17 @@ public class Home extends Fragment implements View.OnClickListener {
         barcodeButton = (ImageButton) mBaseView.findViewById(R.id.button_barcode);
         messageButton = (ImageButton) mBaseView.findViewById(R.id.button_message);
         bannerSlider = (BannerSlider) mBaseView.findViewById(R.id.banner_slider1);
+
+        health = (LinearLayout) mBaseView.findViewById(R.id.all_health_fitness);
+        insurance = (LinearLayout) mBaseView.findViewById(R.id.all_insurance);
+        informationTechnology = (LinearLayout) mBaseView.findViewById(R.id.all_it);
+        sales = (LinearLayout) mBaseView.findViewById(R.id.all_sales);
+
+        health.setOnClickListener(this);
+        insurance.setOnClickListener(this);
+        informationTechnology.setOnClickListener(this);
+        sales.setOnClickListener(this);
+
         bannerSlider.addBanner(new DrawableBanner(R.drawable.slide_imge));
         bannerSlider.addBanner(new DrawableBanner(R.drawable.slide_imge));
         bannerSlider.addBanner(new DrawableBanner(R.drawable.slide_imge));
@@ -146,6 +165,20 @@ public class Home extends Fragment implements View.OnClickListener {
             case R.id.button_internship:
                 loadFragment(new Internship());
                 break;
+
+            case R.id.all_health_fitness:
+                MainActivity.getInstance().loadThisFragment(new JobsList(), "Health/Fitness", "");
+                break;
+            case R.id.all_insurance:
+                MainActivity.getInstance().loadThisFragment(new JobsList(), "Insurance", "");
+                break;
+            case R.id.all_it:
+                MainActivity.getInstance().loadThisFragment(new JobsList(), "IT", "");
+                break;
+            case R.id.all_sales:
+                MainActivity.getInstance().loadThisFragment(new JobsList(), "Sales", "");
+                break;
+
             case R.id.button_barcode:
                 permission();
                 break;

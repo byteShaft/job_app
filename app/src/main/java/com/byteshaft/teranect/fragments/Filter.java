@@ -282,6 +282,5 @@ public class Filter extends Fragment implements View.OnClickListener {
         private CircleImageView companyLogo;
         private TextView salary;
         private TextView jobCategory;
-
     }
 }

@@ -60,6 +60,7 @@ public class Education extends AppCompatActivity implements View.OnClickListener
         adapter = new QualificationAdapter(qualificationArrayList);
         mListView.setAdapter(adapter);
         getQualificationList();
+        getEducationData();
         if (qualificationArrayList.size() == 0) {
             addTextView.setVisibility(View.VISIBLE);
         } else {
@@ -74,7 +75,7 @@ public class Education extends AppCompatActivity implements View.OnClickListener
                 onBackPressed();
                 break;
             case R.id.button_save_edu:
-                for (int i=0 ; i < qualificationArrayList.size() ; i++) {
+                for (int i = 0; i < qualificationArrayList.size(); i++) {
                     Qualification education = qualificationArrayList.get(i);
                     if (education.getId() == -1) {
                         addEducation();
@@ -106,6 +107,10 @@ public class Education extends AppCompatActivity implements View.OnClickListener
                         switch (request.getStatus()) {
                             case HttpURLConnection.HTTP_OK:
                                 finish();
+                                break;
+                            case HttpURLConnection.HTTP_BAD_REQUEST:
+                                AppGlobals.alertDialog(Education.this, "Error", "One or more fields are missing\n" +
+                                        "please provide complete details");
                         }
                 }
 
@@ -114,6 +119,15 @@ public class Education extends AppCompatActivity implements View.OnClickListener
         request.setOnErrorListener(new HttpRequest.OnErrorListener() {
             @Override
             public void onError(HttpRequest request, int readyState, short error, Exception exception) {
+                Helpers.dismissProgressDialog();
+                switch (readyState) {
+                    case HttpRequest.ERROR_CONNECTION_TIMED_OUT:
+                        AppGlobals.alertDialog(Education.this, "Error", "Connection Timeout");
+                        break;
+                    case HttpRequest.ERROR_NETWORK_UNREACHABLE:
+                        AppGlobals.alertDialog(Education.this, "Error", exception.getLocalizedMessage());
+                        break;
+                }
 
             }
         });

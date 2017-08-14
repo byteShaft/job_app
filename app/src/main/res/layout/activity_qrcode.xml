@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.byteshaft.jobapp.activities.QRcodeActivity">
+    android:background="@android:color/black">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/tool_bar"
@@ -57,9 +56,28 @@
 
     </android.support.v7.widget.Toolbar>
 
+    <LinearLayout
+        android:id="@+id/torch_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tool_bar"
+        android:background="@android:color/transparent"
+        android:gravity="center"
+        android:padding="4dp">
+
+        <ImageButton
+            android:id="@+id/button_torch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:padding="4dp"
+            android:src="@mipmap/torch" />
+
+    </LinearLayout>
+
     <me.dm7.barcodescanner.zxing.ZXingScannerView
         android:id="@+id/scanner_qr"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/tool_bar" />
+        android:layout_below="@+id/torch_layout" />
 </RelativeLayout>

@@ -58,6 +58,7 @@ public class WorkExperience extends AppCompatActivity implements View.OnClickLis
         workExpAdapter = new WorkExpAdapter(workExperienceArrayList);
         mListView.setAdapter(workExpAdapter);
         getWorkExperienceList();
+        getWorkExperienceData();
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -112,6 +113,10 @@ public class WorkExperience extends AppCompatActivity implements View.OnClickLis
                         switch (request.getStatus()) {
                             case HttpURLConnection.HTTP_OK:
                                 finish();
+                                break;
+                            case HttpURLConnection.HTTP_BAD_REQUEST:
+                                AppGlobals.alertDialog(WorkExperience.this, "Error", "One or more fields are missing\n" +
+                                        "please provide complete details");
                         }
                 }
 
@@ -120,7 +125,15 @@ public class WorkExperience extends AppCompatActivity implements View.OnClickLis
         request.setOnErrorListener(new HttpRequest.OnErrorListener() {
             @Override
             public void onError(HttpRequest request, int readyState, short error, Exception exception) {
-
+                Helpers.dismissProgressDialog();
+                switch (readyState) {
+                    case HttpRequest.ERROR_CONNECTION_TIMED_OUT:
+                        AppGlobals.alertDialog(WorkExperience.this, "Error", "Connection Timeout");
+                        break;
+                    case HttpRequest.ERROR_NETWORK_UNREACHABLE:
+                        AppGlobals.alertDialog(WorkExperience.this, "Error", exception.getLocalizedMessage());
+                        break;
+                }
             }
         });
         request.open("PUT", String.format("%sme", AppGlobals.BASE_URL));
@@ -172,7 +185,6 @@ public class WorkExperience extends AppCompatActivity implements View.OnClickLis
                                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                                         WorkExp workExp = new WorkExp();
                                         workExp.setId(jsonObject.getInt("id"));
-                                        workExp.setUserId(jsonObject.getInt("user"));
                                         workExp.setJobTitle(jsonObject.getString("title"));
                                         workExp.setComapnyName(jsonObject.getString("company"));
                                         workExp.setPeriod(jsonObject.getString("period"));

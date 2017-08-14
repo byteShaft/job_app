@@ -151,6 +151,7 @@
                         android:orientation="horizontal">
 
                         <LinearLayout
+                            android:id="@+id/all_health_fitness"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="20dp"
@@ -158,7 +159,6 @@
                             android:orientation="vertical">
 
                             <ImageView
-                                android:id="@+id/health_fitness"
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
                                 android:layout_alignParentLeft="true"
@@ -176,6 +176,7 @@
 
 
                         <LinearLayout
+                            android:id="@+id/all_insurance"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="30dp"
@@ -183,7 +184,6 @@
                             android:orientation="vertical">
 
                             <ImageView
-                                android:id="@+id/insurance"
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
                                 android:layout_alignParentLeft="true"
@@ -200,6 +200,7 @@
 
 
                         <LinearLayout
+                            android:id="@+id/all_it"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="30dp"
@@ -207,12 +208,11 @@
                             android:orientation="vertical">
 
                             <ImageView
-                                android:id="@+id/it"
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
                                 android:layout_alignParentLeft="true"
                                 android:layout_weight="1"
-                                android:src="@mipmap/health_fitness_icon" />
+                                android:src="@mipmap/it_icon" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -225,30 +225,7 @@
 
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="30dp"
-                            android:gravity="center"
-                            android:orientation="vertical">
-
-
-                            <ImageView
-                                android:id="@+id/media"
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
-                                android:layout_alignParentLeft="true"
-                                android:layout_weight="1"
-                                android:src="@mipmap/media_icon" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="5dp"
-                                android:text="Media"
-                                android:textAllCaps="true" />
-                        </LinearLayout>
-
-                        <LinearLayout
+                            android:id="@+id/all_sales"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="30dp"
@@ -256,36 +233,11 @@
                             android:orientation="vertical">
 
                             <ImageView
-                                android:id="@+id/science_search"
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
                                 android:layout_alignParentLeft="true"
                                 android:layout_weight="1"
-                                android:src="@mipmap/science_icon" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@+id/health_fitness"
-                                android:layout_marginTop="5dp"
-                                android:text="Science Search"
-                                android:textAllCaps="true" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="30dp"
-                            android:gravity="center"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:id="@+id/legal_professional"
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
-                                android:layout_alignParentLeft="true"
-                                android:layout_weight="1"
-                                android:src="@mipmap/health_fitness_icon" />
+                                android:src="@mipmap/sales_icon" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -293,7 +245,7 @@
                                 android:layout_below="@+id/health_fitness"
                                 android:layout_marginTop="5dp"
                                 android:gravity="center"
-                                android:text="Legal Professional"
+                                android:text="Sales"
                                 android:textAllCaps="true" />
                         </LinearLayout>
                     </LinearLayout>
