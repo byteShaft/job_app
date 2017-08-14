@@ -87,7 +87,6 @@ public class EditProfile extends AppCompatActivity implements View.OnClickListen
     private String mMobileNumberString;
     private String mUserNameString;
     private String mLocationString;
-
     private HttpRequest request;
 
     private Button mSaveButton;
@@ -114,6 +113,14 @@ public class EditProfile extends AppCompatActivity implements View.OnClickListen
             mProfilePicture.setImageBitmap(profilePic);
         }
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mUserName.setText(AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_USER_NAME));
+        mMobileNumber.setText(AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_PHONE_NUMBER));
+        mAddress.setText(AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_LOCATION));
     }
 
     @Override
@@ -157,7 +164,6 @@ public class EditProfile extends AppCompatActivity implements View.OnClickListen
                 }
                 break;
             case R.id.button_save:
-                mLocationString = mAddress.getText().toString();
                 mMobileNumberString = mMobileNumber.getText().toString();
                 mUserNameString = mUserName.getText().toString();
                 editProfileDataToServer();
@@ -173,14 +179,13 @@ public class EditProfile extends AppCompatActivity implements View.OnClickListen
         FormData data = new FormData();
         data.append(FormData.TYPE_CONTENT_TEXT, "name", mUserNameString);
         data.append(FormData.TYPE_CONTENT_TEXT, "phone_number", mMobileNumberString);
-        Log.e("ImageValue ", String.valueOf(imageUrl.isEmpty()));
-        Log.e("LocationValue ", String.valueOf(mLocationString.isEmpty()));
         if (imageUrl != null && !imageUrl.trim().isEmpty()) {
-            data.append(FormData.TYPE_CONTENT_FILE, "photo", imageUrl);
+            data.append(FormData.TYPE_CONTENT_FILE, "user_details.photo", imageUrl);
         }
 
         if (mLocationString != null){
-            data.append(FormData.TYPE_CONTENT_TEXT, "location", mLocationString);
+            Log.e("location String ", mLocationString);
+            data.append(FormData.TYPE_CONTENT_TEXT, "user_details.location", mLocationString);
         }
         request = new HttpRequest(getApplicationContext());
         request.setOnReadyStateChangeListener(this);
@@ -220,13 +225,13 @@ public class EditProfile extends AppCompatActivity implements View.OnClickListen
                             String name = mainObject.getString(AppGlobals.KEY_USER_NAME);
                             String photoUrl = jsonObject.getString(AppGlobals.KEY_IMAGE_URL);
                             String location = jsonObject.getString(AppGlobals.KEY_LOCATION);
-
-                            Log.e("photo urlllll", location);
-                            Log.e("the sl", jsonObject.toString());
+                            String phoneNumber = jsonObject.getString(AppGlobals.KEY_PHONE_NUMBER);
 
                             AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_USER_NAME, name);
                             AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_IMAGE_URL, photoUrl);
-                            AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_LOCATION, photoUrl);
+                            AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_LOCATION, location);
+                            AppGlobals.saveDataToSharedPreferences(AppGlobals.KEY_PHONE_NUMBER, phoneNumber);
+                            Log.e("ImageURL ", photoUrl  + " saved url  " + AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_IMAGE_URL));
 
                             ProfileSettings.getInstance().finish();
                         } catch (JSONException e) {

@@ -192,12 +192,12 @@ public class Me extends Fragment implements View.OnClickListener {
         getWorkExperienceList();
 
         skillsTextViews.setText(AppGlobals.getStringFromSharedPreferences("skills"));
-        if (AppGlobals.isLogin() && !AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_IMAGE_URL).trim().isEmpty()
-                && AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_IMAGE_URL) != null) {
-            String url = AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_IMAGE_URL);
-            System.out.println(url + " server image");
-            Helpers.getBitMap(url, mProfileImage);
 
+        if (AppGlobals.isLogin() && AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_IMAGE_URL) != null) {
+            String url = String.format("%s" + AppGlobals
+                    .getStringFromSharedPreferences(AppGlobals.KEY_IMAGE_URL), AppGlobals.SERVER_IP_FOR_IMAGE);
+            Log.e("ImageURlOnProfilelllll", url);
+            Helpers.getBitMap(url.trim() , mProfileImage);
         }
 
         if (AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_USER_NAME) != null &&
@@ -207,14 +207,14 @@ public class Me extends Fragment implements View.OnClickListener {
             userName = userName.substring(0, 1).toUpperCase() + userName.substring(1).toLowerCase();
             mUserName.setText(userName);
         }
-//        if (AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_LOCATION) != null &&
-//                !AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_LOCATION).trim().isEmpty()) {
-//            String location = AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_LOCATION);
-//            String[] latlng = location.split(",");
-//            double latitude = Double.parseDouble(latlng[0]);
-//            double longitude = Double.parseDouble(latlng[1]);
-//            getAddress(latitude, longitude);
-//        }
+        if (AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_LOCATION) != null &&
+                !AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_LOCATION).trim().isEmpty()) {
+            String location = AppGlobals.getStringFromSharedPreferences(AppGlobals.KEY_LOCATION);
+            String[] latlng = location.split(",");
+            double latitude = Double.parseDouble(latlng[0]);
+            double longitude = Double.parseDouble(latlng[1]);
+            getAddress(latitude, longitude);
+        }
     }
 
 

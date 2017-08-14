@@ -25,11 +25,13 @@ import java.util.Map;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
-public class QRcodeActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler, View.OnClickListener {
+public class QRcodeActivity extends AppCompatActivity implements
+        ZXingScannerView.ResultHandler, View.OnClickListener {
 
     private ZXingScannerView mScannerView;
     private ImageButton selectImageButton;
     private ImageButton backButton;
+    private ImageButton torchButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +40,11 @@ public class QRcodeActivity extends AppCompatActivity implements ZXingScannerVie
         selectImageButton = (ImageButton) findViewById(R.id.select_image_button);
         backButton = (ImageButton) findViewById(R.id.back_button);
         mScannerView = (ZXingScannerView) findViewById(R.id.scanner_qr);
-        mScannerView.startCamera();
+        torchButton = (ImageButton) findViewById(R.id.button_torch);
         selectImageButton.setOnClickListener(this);
         backButton.setOnClickListener(this);
+        torchButton.setOnClickListener(this);
+        mScannerView.startCamera();
     }
 
     @Override
@@ -48,7 +52,6 @@ public class QRcodeActivity extends AppCompatActivity implements ZXingScannerVie
         super.onResume();
         mScannerView.startCamera();
         mScannerView.setResultHandler(this);
-
     }
 
     @Override
@@ -73,7 +76,7 @@ public class QRcodeActivity extends AppCompatActivity implements ZXingScannerVie
     @Override
     protected void onStop() {
         super.onStop();
-        mScannerView.stopCamera();           // Stop camera on pause
+        mScannerView.stopCamera();           // Stop camera on stop
     }
 
     @Override
@@ -85,7 +88,9 @@ public class QRcodeActivity extends AppCompatActivity implements ZXingScannerVie
             case R.id.back_button:
                 onBackPressed();
                 break;
-
+            case R.id.button_torch:
+                Log.e("Flash Button", "working");
+                mScannerView.setFlash(!mScannerView.getFlash());
         }
     }
 

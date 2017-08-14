@@ -1,5 +1,6 @@
 package com.byteshaft.teranect.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -18,6 +19,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.byteshaft.requests.HttpRequest;
 import com.byteshaft.teranect.R;
@@ -184,12 +186,22 @@ public class JobsList extends Fragment implements View.OnClickListener {
                 @Override
                 public void onClick(View view) {
                     saveJob(jobDetail.getJobId());
-                    Log.e("Myyyyyyyyyyyyyyyy", String.valueOf(jobDetail.getJobId()));
                 }
             });
             viewHolder.applyButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    Intent i = new Intent(Intent.ACTION_SEND);
+                    i.setType("message/rfc822");
+                    i.putExtra(Intent.EXTRA_EMAIL  , new String[]{"recipient@example.com"});
+                    i.putExtra(Intent.EXTRA_SUBJECT, "subject of email");
+                    i.putExtra(Intent.EXTRA_TEXT   , "body of email");
+                    try {
+                        startActivity(Intent.createChooser(i, "Send mail..."));
+                    } catch (android.content.ActivityNotFoundException ex) {
+                        Toast.makeText(AppGlobals.getContext(),
+                                "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
             return convertView;
