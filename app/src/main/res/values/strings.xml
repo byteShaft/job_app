@@ -129,4 +129,5 @@
     <string name="medications">Select Medications</string>
     <string name="schedule_updated">Schedule Successfully updated</string>
     <string name="connection_time_out">Connection timeout</string>
+    <string name="no_search_result">No search results found</string>
 </resources>
