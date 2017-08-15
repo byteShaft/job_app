@@ -6,12 +6,15 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -23,6 +26,7 @@ import com.byteshaft.teranect.utils.AppGlobals;
 import com.byteshaft.teranect.utils.Helpers;
 import com.byteshaft.teranect.utils.LoginDialog;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,12 +42,54 @@ public class Search extends Fragment {
     private GridView mSearchViewElements;
     private ArrayList<JobDetails> jobsArrayList;
     private ListAdapter adapter;
+    private EditText searchEditText;
+    private boolean userTyping = false;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mBaseView = inflater.inflate(R.layout.fragment_search, container, false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+        searchEditText = (EditText) mBaseView.findViewById(R.id.search_edit_text);
+        searchEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                userTyping = true;
+                ArrayList<JobDetails> search = new ArrayList<JobDetails>();
+                String query = charSequence.toString();
+                if (!charSequence.toString().trim().isEmpty()) {
+                    adapter = new ListAdapter(search);
+                    mSearchViewElements.setAdapter(adapter);
+                    for (JobDetails jobDetails : jobsArrayList) {
+                        if (StringUtils.containsIgnoreCase(jobDetails.getJobTitle(), query) ||
+                                StringUtils.containsIgnoreCase(jobDetails.getLocation_name(), query) ||
+                                StringUtils.containsIgnoreCase(jobDetails.getCreatorName(), query) ||
+                                StringUtils.containsIgnoreCase(jobDetails.getJobType(), query)) {
+                            search.add(jobDetails);
+                            adapter.notifyDataSetChanged();
+                        }
+                    }
+                    if (search.size() < 1) {
+                        Helpers.showSnackBar(getView(), getString(R.string.no_search_result));
+                    }
+                } else {
+                    adapter = new ListAdapter(jobsArrayList);
+                    mSearchViewElements.setAdapter(adapter);
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                userTyping = false;
+
+            }
+        });
         mSearchViewElements = (GridView) mBaseView.findViewById(R.id.grid_view);
         jobsArrayList = new ArrayList<>();
         getJobsList();
@@ -53,6 +99,12 @@ public class Search extends Fragment {
     private void getJobsList() {
         HttpRequest request = new HttpRequest(AppGlobals.getContext());
         Helpers.showProgressDialog(getActivity(), "Please wait...");
+        request.setOnErrorListener(new HttpRequest.OnErrorListener() {
+            @Override
+            public void onError(HttpRequest request, int readyState, short error, Exception exception) {
+                Helpers.dismissProgressDialog();
+            }
+        });
         request.setOnReadyStateChangeListener(new HttpRequest.OnReadyStateChangeListener() {
             @Override
             public void onReadyStateChange(HttpRequest request, int readyState) {
@@ -63,6 +115,9 @@ public class Search extends Fragment {
                         switch (request.getStatus()) {
                             case HttpURLConnection.HTTP_OK:
                                 Log.i("MY Category", request.getResponseText());
+                                jobsArrayList = new ArrayList<JobDetails>();
+                                adapter = new ListAdapter(jobsArrayList);
+                                mSearchViewElements.setAdapter(adapter);
                                 try {
                                     JSONArray jsonArray = new JSONArray(request.getResponseText());
                                     for (int i = 0; i < jsonArray.length(); i++) {
@@ -79,9 +134,8 @@ public class Search extends Fragment {
                                         jobDetails.setLocation_name(jsonObject.getString("location_name"));
                                         jobDetails.setDetailDescription(jsonObject.getString("detailed_description"));
                                         jobsArrayList.add(jobDetails);
+                                        adapter.notifyDataSetChanged();
                                     }
-                                    adapter = new ListAdapter(jobsArrayList);
-                                    mSearchViewElements.setAdapter(adapter);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
