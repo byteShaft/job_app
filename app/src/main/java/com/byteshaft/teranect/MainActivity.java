@@ -23,7 +23,6 @@ public class MainActivity extends AppCompatActivity {
         return sInstance;
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         overridePendingTransition(R.anim.enter, R.anim.exit);
