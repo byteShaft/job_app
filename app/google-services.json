@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1066739182496",
+    "firebase_url": "https://jobapp-97d8c.firebaseio.com",
+    "project_id": "jobapp-97d8c",
+    "storage_bucket": "jobapp-97d8c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1066739182496:android:9628c411da4e681e",
+        "android_client_info": {
+          "package_name": "com.byteshaft.teranect"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1066739182496-r57p72ut4q9ieqlf0giftt2oquemaehe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAU-BuBt7V0HG9ADqvI3PUqO1kbdH4Y6uE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
